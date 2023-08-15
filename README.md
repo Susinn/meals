@@ -1,6 +1,6 @@
 # meals
 
-A new Flutter project.
+A  Flutter meals project.
 
 ## Getting Started
 
