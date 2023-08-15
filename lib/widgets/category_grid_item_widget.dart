@@ -27,9 +27,12 @@ class CategoryGrid extends StatelessWidget {
             category.color.withOpacity(0.85)
           ], begin: Alignment.bottomLeft, end: Alignment.topRight),
         ),
-        child: Text(
-          category.title,
-          textAlign: TextAlign.center,
+        child: Center(
+          child: Text(
+            category.title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 20),
+          ),
         ),
       ),
     );

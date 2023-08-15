@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals/providers/favourite_provider.dart';
-import 'package:meals/providers/meals_provider.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/filters_screen.dart';
 import 'package:meals/screens/meals.dart';
@@ -40,7 +39,6 @@ class _TabScreenState extends ConsumerState<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-  
     final availableMEALS = ref.watch(filteredMealsProvider);
     var activePagetitle = 'Categories';
     Widget activePage = CategoriesScreen(
@@ -67,9 +65,11 @@ class _TabScreenState extends ConsumerState<TabScreen> {
               icon: Icon(Icons.favorite), label: 'Favourite')
         ],
         onTap: (value) {
-          setState(() {
-            index = value;
-          });
+          setState(
+            () {
+              index = value;
+            },
+          );
         },
       ),
     );

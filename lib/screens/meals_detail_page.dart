@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:js_util';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals/models/meals_model.dart';
@@ -17,32 +15,43 @@ class MealsDetailPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favouriteMeals = ref.watch(favouriteProvider);
     final isvisible = favouriteMeals.contains(meal);
-    print(isvisible);
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         actions: [
           IconButton(
-              onPressed: () {
-                final isFav = ref
-                    .read(favouriteProvider.notifier)
-                    .toggleFavouriteStatus(meal);
+            onPressed: () {
+              final isFav = ref
+                  .read(favouriteProvider.notifier)
+                  .toggleFavouriteStatus(meal);
 
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: isFav
-                          ? const Text('meal added to favourites')
-                          : const Text('meal removed from favourites')),
-                );
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: isFav
+                        ? const Text('meal added to favourites')
+                        : const Text('meal removed from favourites')),
+              );
+            },
+            icon: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: (child, animation) {
+                return RotationTransition(
+                  turns: Tween(begin: 0.5,end:1.0).animate(animation), 
+                  child: child
+                  );
               },
-              icon: Icon(isvisible ? Icons.stargit add(first, second) : Icons.star_border))
+              child: Icon(isvisible ? Icons.star : Icons.star_border,key: ValueKey(isvisible)),
+            ),
+          )
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(meal.imageUrl),
+            Hero(
+              tag: meal.id,
+              child: Image.network(meal.imageUrl)),
             const SizedBox(
               height: 20,
             ),
